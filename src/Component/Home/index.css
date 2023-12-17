@@ -1,0 +1,27 @@
+.home-container {
+  height: 100vh;
+}
+
+.categories-list {
+  display: flex;
+  justify-content: space-around;
+  background-color: #4fe0f3;
+}
+
+.category-container {
+  list-style: none;
+}
+
+.main {
+  height: 100vh;
+  background-color: white;
+}
+.loader {
+  text-align: center;
+  margin-top: 20%;
+}
+
+.slider-container {
+  background-color: #4fe0f3;
+  padding: 40px;
+}

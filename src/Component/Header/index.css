@@ -1,0 +1,40 @@
+.header-container {
+  background-color: antiquewhite;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+  margin-left: 0px;
+}
+
+.cart-icon {
+  height: 40px;
+  width: 40px;
+}
+
+.orders {
+  display: flex;
+  align-items: center;
+}
+
+.order {
+  font-weight: 500;
+}
+
+@media (min-width: 320px) {
+  .website-name {
+    font-size: 20px;
+  }
+}
+
+.cart-count {
+  color: white;
+  font-weight: bold;
+  background-color: rgb(255, 71, 47);
+  padding: 6px;
+  border-radius: 35px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
