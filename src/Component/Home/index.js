@@ -1,10 +1,14 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
-import Header from '../Header'
-import MenuCategory from '../MenuCategory'
-import CartContext from '../../context/CartContext'
-import Item from '../Item'
 
+/* import Slider from 'react-slick'
+
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css' */
+
+import Header from '../Header'
+import Item from '../Item'
+import CartContext from '../../context/CartContext'
 import './index.css'
 
 class Home extends Component {
@@ -37,10 +41,28 @@ class Home extends Component {
         categoryList: each.category_dishes,
       }))
       console.log(data)
-      const category = menuGenre.filter(each => each.menu_category_id === 11)
+      console.log(menuGenre)
+
+      const category = menuGenre[0].categoryList
+
+      console.log(category)
+      const updatedData = category.map(each => ({
+        addOnCat: each.addonCat,
+        dishAvailability: each.dish_Availability,
+        dishCalories: each.dish_calories,
+        dishCurrency: each.dish_currency,
+        dishDescription: each.dish_description,
+        dishImage: each.dish_image,
+        dishPrice: each.dish_price,
+        nextUrl: each.nxturl,
+        dishId: each.dish_id,
+        dishName: each.dish_name,
+        count: 0,
+      }))
+
       this.setState({
         menuCategories: menuGenre,
-        categoryItem: category,
+        categoryItem: updatedData,
         restaurantName: restoName,
         isLoading: false,
       })
@@ -104,16 +126,31 @@ class Home extends Component {
     }
   }
 
+  renderMenuCategory = () => {
+    const {menuCategories} = this.state
+
+    return (
+      <ul className="categories-list">
+        <li className="category-items">
+          {menuCategories.map(each => (
+            <button
+              type="button"
+              key={each.menuCategoryId}
+              className="menu-category"
+              onClick={() => this.getMenuCategoryId(each.menuCategoryId)}
+            >
+              {each.menuCategory}
+            </button>
+          ))}
+        </li>
+      </ul>
+    )
+  }
+
   renderHome = () => (
     <CartContext.Consumer>
       {value => {
-        const {
-          menuCategories,
-          categoryItem,
-          isLoading,
-          restaurantName,
-          TotalCount,
-        } = this.state
+        const {categoryItem, isLoading, restaurantName, TotalCount} = this.state
         const {totalCount} = value
         console.log(totalCount)
         return (
@@ -134,16 +171,7 @@ class Home extends Component {
                   restaurantName={restaurantName}
                   cartCount={TotalCount}
                 />
-                <ul className="categories-list">
-                  {menuCategories.map(each => (
-                    <MenuCategory
-                      menuCategories={each}
-                      key={each.menuCategoryId}
-                      getMenuCategoryId={this.getMenuCategoryId}
-                    />
-                  ))}
-                </ul>
-
+                {this.renderMenuCategory()}
                 <ul>
                   <Item
                     categoryList={categoryItem}
